@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { ProxyModule } from './common/proxy/proxy.module';
+import { PassengerModule } from './passenger/passenger.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ProxyModule } from './common/proxy/proxy.module';
     }),
     UsersModule,
     ProxyModule,
+    PassengerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
