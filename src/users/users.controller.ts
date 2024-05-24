@@ -7,9 +7,12 @@ import { UserMSG } from 'src/common/constants';
 
 @Controller('api/v2/users')
 export class UsersController {
+    private _clientProxyUser
+    
     constructor(private readonly clientProxy: ClientProxySuperFlights
-    ){}
-    private _clientProxyUser = this.clientProxy.clientProxyUsers();
+    ){
+        this._clientProxyUser = this.clientProxy.clientProxyUsers();
+    }
 
     @Post("/create/")
     createUser(@Body() userDTO: UserDTO): Observable<IUser> {
