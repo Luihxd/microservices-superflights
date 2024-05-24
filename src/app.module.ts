@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { ProxyModule } from './common/proxy/proxy.module';
 import { PassengerModule } from './passenger/passenger.module';
+import { FlightModule } from './flight/flight.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PassengerModule } from './passenger/passenger.module';
     UsersModule,
     ProxyModule,
     PassengerModule,
+    FlightModule,
   ],
   controllers: [AppController],
   providers: [AppService],
