@@ -6,4 +6,6 @@ import { ProxyModule } from 'src/common/proxy/proxy.module';
   imports: [ProxyModule],
   controllers: [FlightController]
 })
-export class FlightModule {}
+export class FlightModule {
+  
+}
