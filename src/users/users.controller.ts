@@ -25,7 +25,7 @@ export class UsersController {
     }
 
     @Get("/get_by_id/:id")
-    findOneUser(@Param('id') id: string): Observable<IUser> {
+    findUserById(@Param('id') id: string): Observable<IUser> {
         return this._clientProxyUser.send(UserMSG.FIND_ONE, id);
     }
 
