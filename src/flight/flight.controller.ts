@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ClientProxySuperFlights } from 'src/common/proxy/client-proxy';
 import { FlightDTO } from './dto/flight.dto';
-import { FlightMSG } from 'src/common/constants';
+import { FlightMSG, PassengerMSG } from 'src/common/constants';
 import { Observable } from 'rxjs';
 import { IFlight } from 'src/common/interfaces/flight.interface';
 
@@ -43,5 +43,20 @@ export class FlightController {
     deleteFlight(@Param('id') id: string): Observable<any>
     {
       return this._clientProxyFlight.send(FlightMSG.DELETE, id);
+    }
+
+    @Post("add_passenger/:flightId/passenger/:passengerId")
+    async addPassenger(
+      @Param('flightId') flightId: string, 
+      @Param('passengerId') passengerId: string): Promise<Observable<any>>
+    {
+      const passenger = await this._clientProxyPassenger
+      .send(PassengerMSG.FIND_ONE, passengerId)
+      .toPromise();
+      if(!passenger)
+      {
+        throw new HttpException('Passenger not found', HttpStatus.NOT_FOUND);
+      }
+      return this._clientProxyFlight.send(FlightMSG.ADD_PASSENGER, {flightId, passenger});
     }
   }
