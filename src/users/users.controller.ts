@@ -4,7 +4,9 @@ import { UserDTO } from './dto/user.dto';
 import { IUser } from 'src/common/interfaces/user.interface';
 import { Observable } from 'rxjs';
 import { UserMSG } from 'src/common/constants';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('api/v2/users')
 export class UsersController {
     private _clientProxyUser

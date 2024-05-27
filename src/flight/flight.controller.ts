@@ -4,7 +4,9 @@ import { FlightDTO } from './dto/flight.dto';
 import { FlightMSG, PassengerMSG } from 'src/common/constants';
 import { Observable } from 'rxjs';
 import { IFlight } from 'src/common/interfaces/flight.interface';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('flights')
 @Controller('api/v2/flights')
 export class FlightController {
     
