@@ -27,7 +27,7 @@ export class PassengerService {
         return await this.model.findByIdAndUpdate({_id: id}, passengerDTO, {new: true});
     }
 
-    async deleteByid(id: string): Promise<IPassenger>{
+    async deleteByid(id: string): Promise<any>{
         return await this.model.findByIdAndDelete(id);
     }
 }
