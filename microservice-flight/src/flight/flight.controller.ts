@@ -1,44 +1,46 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { FlightDTO } from './dto/flight.dto';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { FlightMSG } from 'src/common/constants';
 
 
 @Controller()
 export class FlightController {
+    _clientProxyPassenger: any;
+    _clientProxyFlight: any;
     constructor(private readonly flightService: FlightService,
     ){}
 
-    @Post("/create/")
-    create(@Body() flightDTO: FlightDTO){
+    @MessagePattern(FlightMSG.CREATE)
+    create(@Payload() flightDTO: FlightDTO){
         return this.flightService.createFlight(flightDTO);
     }
 
-    @Get("/get_all/")
+    @MessagePattern(FlightMSG.FIND_ALL)
     findAllFlights(){
         return this.flightService.findAllFlights();
     }
 
-    @Get("/get_by_id/:id")
-    findFlightById(@Param("id") id: string){
+    @MessagePattern(FlightMSG.FIND_ONE)
+    findFlightById(@Payload("id") id: string){
         return this.flightService.findFlightById(id);
     }
 
-    @Put("/update_by_id/:id")
-    updateFlight(@Param("id") id: string, @Body() flightDTO: FlightDTO){
-        return this.flightService.updateFlight(id, flightDTO);
+    @MessagePattern(FlightMSG.UPDATE)
+    updateFlight(@Payload() payload){
+        return this.flightService.updateFlight(payload.id, payload.flightDTO);
     }
 
-    @Delete("/delete_by_id/:id")
-    deleteFlight(@Param("id") id: string){
+
+    @MessagePattern(FlightMSG.UPDATE)
+    deleteFlight(@Payload() id: string){
         return this.flightService.deleteFlight(id);
     }
 
-    @Post("/add_passenger/:id/passenger/:passengerId")      
-    async addPassenger(@Param("id") id: string, @Param("passengerId") passengerId: string){
-        console.log(id, passengerId)
-        // const passenger = await this.passengerService.findOneByid(passengerId);
-        // if(!passenger)
-        //     throw new HttpException('Passenger not found', HttpStatus.NOT_FOUND);
-        // return this.flightService.addPassenger(id, passengerId);
+    @MessagePattern(FlightMSG.ADD_PASSENGER)
+    addPassenger(
+      @Payload() payload){
+        return this.flightService.addPassenger(payload.flightId, payload.passengerId);
     }
 }
