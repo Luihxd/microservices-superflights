@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { ProxyModule } from './common/proxy/proxy.module';
 import { PassengerModule } from './passenger/passenger.module';
 import { FlightModule } from './flight/flight.module';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
@@ -16,7 +17,11 @@ import { FlightModule } from './flight/flight.module';
     UsersModule,
     ProxyModule,
     PassengerModule,
-    FlightModule,
+    FlightModule,                                                 
+    AuthController,
+    
+      
+    
   ],
   controllers: [AppController],
   providers: [AppService],

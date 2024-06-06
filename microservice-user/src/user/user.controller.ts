@@ -34,6 +34,19 @@ export class UserController {
         return this.userService.delete(id);
     }
 
+    
+    @MessagePattern(UserMSG.VALID_USER)    
+    async validateUser(@Payload() payload): Promise<any> {
+        const user = await this.userService.findByUsername(payload.username);
+        const isValidPassword = await this.userService.validatePassword(payload.pass, user.password);
+        if(user && isValidPassword) {
+            return user
+        }
+        else{
+            // throw new HttpException('Wrong credentials', HttpStatus.UNAUTHORIZED);
+            return null;
+          }
+    }
 
 
 }
