@@ -7,9 +7,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { ConfigService } from '@nestjs/config';
+import { ProxyModule } from 'src/common/proxy/proxy.module';
 
 @Module({
-  imports:[UsersModule, PassportModule, 
+  imports:[UsersModule, PassportModule, ProxyModule,
 
     JwtModule.registerAsync({
       inject: [ConfigService],

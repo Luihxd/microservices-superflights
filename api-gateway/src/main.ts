@@ -16,7 +16,7 @@ async function bootstrap() {
   .setTitle("Superflight API v2")
   .setDescription("Scheduled flights Microservices")
   .setVersion("2.0.0")
-  ///.addBearerAuth()
+  .addBearerAuth()
   .build();
 
   app.enableCors();
